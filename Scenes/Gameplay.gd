@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var entities = $Entities
-onready var tiles = $Tiles
+onready var entities = $Board/Entities
+onready var tiles = $Board/Tiles
 
 func get_tile(x, y):
   if tiles != null:
