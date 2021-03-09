@@ -12,6 +12,13 @@ var placeholder = null
 
 func _ready():
   create_empty_grid()
+  
+func set_tile(x, y, tile):
+  if outside_bounds(x, y):
+    return
+  if tiles[x][y] != null:
+    tiles[x][y].queue_free()
+  tiles[x][y] = tile
 
 func get_tile(x, y):
   if outside_bounds(x, y):

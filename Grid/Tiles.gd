@@ -2,6 +2,8 @@ extends Node2D
 
 var wall_tile = preload("res://Tiles/Wall.tscn")
 
+var passable_tiles = [] setget ,get_passable_tiles
+
 export(Array,Resource) var tile_scenes = []
 
 onready var grid = $Grid
@@ -11,6 +13,15 @@ signal sequence_completed
 func _ready():
   grid.placeholder = wall_tile.instance()
   call_deferred("populate_grid")
+  
+func get_passable_tiles():
+  var tiles = []
+  for x in grid.width:
+    for y in grid.height:
+      var tile = grid.get_tile(x, y)
+      if tile != null && tile.passable:
+        tiles.append(tile)
+  return tiles
   
 func get_tile(x, y):
   return grid.get_tile(x, y)
@@ -29,8 +40,6 @@ func spawn_tiles():
       else:
         tile = grid.tiles[x][y]
         tile.call_deferred("appear")
-
-    yield(get_tree().create_timer(0.05), "timeout")
 
   emit_signal("sequence_completed")
 
