@@ -1,12 +1,12 @@
 extends Node2D
+class_name Grid
 
-export var width = 6
-export var height = 6
+export var size = Vector2(9, 9)
 
 var tiles = []
 
-var tile_width = 128
-var tile_height = 128
+const tile_width = 120
+const tile_height = 120
 
 var placeholder = null
 
@@ -27,19 +27,19 @@ func get_tile(x, y):
   return tiles[x][y]
 
 func outside_bounds(x, y):
-  return x < 0 || y < 0 || x >= width || y >= height
+  return x < 0 || y < 0 || x >= size.x || y >= size.y
 
 func clear_grid():
-  for x in width:
-    for y in height:
+  for x in size.x:
+    for y in size.y:
       if tiles[x][y] != null:
         tiles[x][y].queue_free()
       tiles[x][y] = null
 
 func create_empty_grid():
-  for x in width:
+  for x in size.x:
     tiles.append([])
-    for y in height:
+    for y in size.y:
       tiles[x].append(null)
 
 func pixel_to_grid(x, y):
@@ -48,7 +48,7 @@ func pixel_to_grid(x, y):
 
   if local_position.x < 0 || local_position.y < 0:
     return null
-  if local_position.x > tile_width * width || local_position.y > tile_height * height:
+  if local_position.x > tile_width * size.x || local_position.y > tile_height * size.y:
     return null
 
   var grid_position = Vector2(
@@ -66,3 +66,6 @@ func grid_to_pixel(x, y):
 func mouse_to_grid():
   var mouse_position = get_viewport().get_mouse_position()
   return pixel_to_grid(mouse_position.x, mouse_position.y)
+  
+func as_index(cell:Vector2) -> int:
+  return int(cell.x + size.x * cell.y)

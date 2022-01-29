@@ -8,14 +8,19 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://Grid/Grid.gd"
+} ]
 _global_script_class_icons={
-
+"Grid": ""
 }
 
 [application]
 
-config/name="7DRL"
+config/name="Tactics"
 run/main_scene="res://Scenes/Gameplay.tscn"
 config/icon="res://icon.png"
 

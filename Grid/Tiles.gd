@@ -14,6 +14,10 @@ func _ready():
   grid.placeholder = wall_tile.instance()
   call_deferred("populate_grid")
   
+func _process(delta):
+  if Input.is_action_just_pressed("ui_accept"):
+    call_deferred("populate_grid")
+  
 func get_passable_tiles():
   var tiles = []
   for x in grid.width:

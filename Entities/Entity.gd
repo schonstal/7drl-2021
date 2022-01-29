@@ -16,4 +16,4 @@ var attacked = false
 var stunned = false
 
 func move(dx, dy):
-  position = position - Vector2(dx * 128, dy * 128)
+  position = position - Vector2(dx * Grid.tile_width, dy * Grid.tile_height)
